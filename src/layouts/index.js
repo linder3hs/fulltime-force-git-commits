@@ -3,10 +3,10 @@ import Menu from "./Menu";
 
 function Layout(props) {
   return (
-    <div>
+    <React.Fragment>
       <Menu />
-      {props.children}
-    </div>
+      <div style={{ margin: 10 }}>{props.children}</div>
+    </React.Fragment>
   );
 }
 

@@ -5,3 +5,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.card {  
+  border-radius: 8px;
+  background-color: #f4f7fa; 
+  box-shadow: 0 4px 4px -2px #f4f7fa75;
+  margin-bottom: 10px;
+}
