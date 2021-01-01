@@ -1,24 +1,51 @@
 import React, { useState, useEffect } from "react";
 import { githubService } from "../../services";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "../../components/Card";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    width: "100%",
-    backgroundColor: theme.palette.background.paper,
-  },
-  inline: {
-    display: "inline",
-  },
-}));
+import Comments from "../../components/Comments";
+import {
+  Container,
+  Grid,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+  TextField,
+  InputAdornment,
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import FolderIcon from "@material-ui/icons/Folder";
 
 function Home() {
+  const [commitsInitial, setCommitsInitial] = useState([]);
   const [commits, setCommits] = useState([]);
+  const [files, setFiles] = useState([]);
+  const [comments, setComments] = useState([]);
 
   const fetchListCommits = async () => {
     const response = await githubService.commits();
+    setCommitsInitial(response);
     setCommits(response);
+  };
+
+  const fetchListFile = async (sha) => {
+    const response = await githubService.files(sha);
+    setFiles(response.files);
+  };
+
+  const fetchComments = async (sha) => {
+    const response = await githubService.comments(sha);
+    console.log(response);
+    setComments(response);
+  };
+
+  const handleSearch = (e) => {
+    setFiles([]);
+    setComments([]);
+    setCommits(
+      commitsInitial.filter((item) =>
+        item.commit.message.toLowerCase().includes(e.target.value)
+      )
+    );
   };
 
   useEffect(() => {
@@ -26,21 +53,62 @@ function Home() {
   }, []);
 
   return (
-    <React.Fragment>
-      <h1>List of commits</h1>
-      {commits &&
-        commits.map((commit) => (
-          <React.Fragment>
-            <Card
-              avatar={commit.author.avatar_url}
-              title={commit.commit.message}
-              name={commit.commit.author.name}
-              date={commit.commit.author.date}
-              status={commit.commit.verification.verified}
-            />
-          </React.Fragment>
-        ))}
-    </React.Fragment>
+    <Container maxWidth="lg">
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={12}>
+          <h1>List of commits</h1>
+          <TextField
+            id="input-with-icon-textfield"
+            label="Search commits..."
+            variant="outlined"
+            onChange={handleSearch}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          {commits &&
+            commits.map((commit) => (
+              <Grid item>
+                <Card
+                  avatar={commit.author.avatar_url}
+                  title={commit.commit.message}
+                  name={commit.commit.author.name}
+                  date={commit.commit.author.date}
+                  status={commit.commit.verification.verified}
+                  sha={commit.sha}
+                  fetchListFile={fetchListFile}
+                  fetchComments={fetchComments}
+                />
+              </Grid>
+            ))}
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <List dense={true}>
+            {files &&
+              files.map((file) => (
+                <ListItem>
+                  <ListItemIcon>
+                    <FolderIcon color="secondary" />
+                  </ListItemIcon>
+                  <ListItemText
+                    primary={file?.filename}
+                    secondary={`changes: ${file?.changes}`}
+                  />
+                </ListItem>
+              ))}
+          </List>
+        </Grid>
+        <Grid item xs={12} sm={3}>
+          <Comments comments={comments} />
+        </Grid>
+      </Grid>
+    </Container>
   );
 }
 

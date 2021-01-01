@@ -1,14 +1,24 @@
-import React from "react";
-import Avatar from "@material-ui/core/Avatar";
+import React, { memo } from "react";
+import { Avatar, Button } from "@material-ui/core";
 import { Column, Row, Item } from "@mui-treasury/components/flex";
 import { Info, InfoCaption } from "@mui-treasury/components/info";
 import { useChatzInfoStyles } from "@mui-treasury/styles/info/chatz";
 import { useGradientAvatarStyles } from "@mui-treasury/styles/avatar/gradient";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import GitHubIcon from "@material-ui/icons/GitHub";
+import moment from "moment";
 
-const ChatzListItemDemo = React.memo(function ChatzListItem(props) {
-  const { avatar, title, name, date, status } = props;
+const ChatzListItem = memo(function ChatzListItem(props) {
+  const {
+    avatar,
+    title,
+    name,
+    date,
+    status,
+    sha,
+    fetchListFile,
+    fetchComments,
+  } = props;
 
   const avatarStyles = useGradientAvatarStyles({
     size: 72,
@@ -29,7 +39,26 @@ const ChatzListItemDemo = React.memo(function ChatzListItem(props) {
           <Info useStyles={useChatzInfoStyles}>
             <h3>{title}</h3>
             <span>{name}</span>
-            <InfoCaption>{date}</InfoCaption>
+            <InfoCaption>{moment(date).format("MMM D, YY")}</InfoCaption>
+            <Button
+              style={{ marginTop: 10 }}
+              color="primary"
+              variant="outlined"
+              size="small"
+              onClick={() => fetchListFile(sha)}
+            >
+              Files
+            </Button>
+            &nbsp;
+            <Button
+              style={{ marginTop: 10 }}
+              color="primary"
+              variant="outlined"
+              size="small"
+              onClick={() => fetchComments(sha)}
+            >
+              Comments
+            </Button>
           </Info>
           <Item minWidth={48} textAlign={"right"}>
             {status ? <CheckCircleIcon /> : <GitHubIcon />}
@@ -40,4 +69,4 @@ const ChatzListItemDemo = React.memo(function ChatzListItem(props) {
   );
 });
 
-export default ChatzListItemDemo;
+export default ChatzListItem;

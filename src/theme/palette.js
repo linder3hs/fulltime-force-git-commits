@@ -7,15 +7,15 @@ const palette = {
   black,
   white,
   primary: {
-    light: "#ff7a59",
-    main: "#ff7a59",
-    dark: "#ff7a59",
+    light: "#654062",
+    main: "#654062",
+    dark: "#654062",
     contrastText: "#fff",
   },
   secondary: {
-    light: "#ff7961",
-    main: "#f44336",
-    dark: "#ba000d",
+    light: "#ffd66b",
+    main: "#ffd66b",
+    dark: "#ffd66b",
     contrastText: "#000",
   },
   text: {
