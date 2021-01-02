@@ -34,7 +34,6 @@ function Home() {
 
   const fetchComments = async (sha) => {
     const response = await githubService.comments(sha);
-    console.log(response);
     setComments(response);
   };
 

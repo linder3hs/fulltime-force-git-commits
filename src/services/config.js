@@ -1,5 +1,5 @@
 const configService = {
-  apiUrl: "https://api.github.com",
+  apiUrl: "https://github-api-bplzey501.vercel.app/api/github",
 };
 
 export default configService;
