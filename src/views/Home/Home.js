@@ -55,11 +55,11 @@ function Home() {
     <Container maxWidth="lg">
       <Grid container spacing={3}>
         <Grid item xs={12} sm={12}>
-          <h1>List of commits</h1>
           <TextField
             id="input-with-icon-textfield"
             label="Search commits..."
             variant="outlined"
+            fullWidth
             onChange={handleSearch}
             InputProps={{
               startAdornment: (
@@ -71,9 +71,10 @@ function Home() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
+          <h4>Commits</h4>
           {commits &&
-            commits.map((commit) => (
-              <Grid item>
+            commits.map((commit, index) => (
+              <Grid key={index} item>
                 <Card
                   avatar={commit.author.avatar_url}
                   title={commit.commit.message}
@@ -88,10 +89,11 @@ function Home() {
             ))}
         </Grid>
         <Grid item xs={12} sm={3}>
+          <h4>Files</h4>
           <List dense={true}>
             {files &&
-              files.map((file) => (
-                <ListItem>
+              files.map((file, index) => (
+                <ListItem key={index}>
                   <ListItemIcon>
                     <FolderIcon color="secondary" />
                   </ListItemIcon>
@@ -104,6 +106,7 @@ function Home() {
           </List>
         </Grid>
         <Grid item xs={12} sm={3}>
+          <h4>Comments</h4>
           <Comments comments={comments} />
         </Grid>
       </Grid>

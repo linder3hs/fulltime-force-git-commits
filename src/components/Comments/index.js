@@ -29,9 +29,9 @@ export default function Comments(props) {
   return (
     <List className={classes.root}>
       {comments &&
-        comments.map((comment) => (
+        comments?.map((comment, index) => (
           <React.Fragment>
-            <ListItem alignItems="flex-start">
+            <ListItem key={index} alignItems="flex-start">
               <ListItemAvatar>
                 <Avatar
                   alt={comment.user.login}

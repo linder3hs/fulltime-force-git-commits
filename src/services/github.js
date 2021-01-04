@@ -15,13 +15,23 @@ githubService.commits = async function () {
 };
 
 githubService.files = async function (sha) {
-  const response = await fetch(`${baseUrl}/files/${sha}`);
-  return await response.json();
+  try {
+    const response = await fetch(`${baseUrl}/files/${sha}`);
+    const data = await response.json();
+    return data.body;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 githubService.comments = async function (sha) {
-  const response = await fetch(`${baseUrl}/comments/${sha}/`);
-  return await response.json();
+  try {
+    const response = await fetch(`${baseUrl}/comments/${sha}/`);
+    const data = await response.json();
+    return data.body;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export default githubService;

@@ -5,7 +5,7 @@ function Layout(props) {
   return (
     <React.Fragment>
       <Menu />
-      <div style={{ margin: 10 }}>{props.children}</div>
+      <div style={{ marginTop: 40 }}>{props.children}</div>
     </React.Fragment>
   );
 }
