@@ -5,9 +5,8 @@ const githubService = {};
 
 githubService.commits = async function () {
   try {
-    const response = await fetch(`${baseUrl}/history`);
+    const response = await fetch(`${baseUrl}/commits/history`);
     const data = await response.json();
-    console.log(data.status);
     return data.body;
   } catch (err) {
     console.error(err);
@@ -16,7 +15,7 @@ githubService.commits = async function () {
 
 githubService.files = async function (sha) {
   try {
-    const response = await fetch(`${baseUrl}/files/${sha}`);
+    const response = await fetch(`${baseUrl}/commit/files/${sha}`);
     const data = await response.json();
     return data.body;
   } catch (err) {
@@ -26,7 +25,7 @@ githubService.files = async function (sha) {
 
 githubService.comments = async function (sha) {
   try {
-    const response = await fetch(`${baseUrl}/comments/${sha}/`);
+    const response = await fetch(`${baseUrl}/commit/comments/${sha}/`);
     const data = await response.json();
     return data.body;
   } catch (err) {
