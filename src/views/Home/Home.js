@@ -71,7 +71,7 @@ function Home() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <h4>Commits</h4>
+          <h4>Commits {`(${commits?.length})`} </h4>
           {commits &&
             commits.map((commit, index) => (
               <Grid key={index} item>
@@ -89,7 +89,7 @@ function Home() {
             ))}
         </Grid>
         <Grid item xs={12} sm={3}>
-          <h4>Files</h4>
+          <h4>Files {`(${files?.length})`}</h4>
           <List dense={true}>
             {files &&
               files.map((file, index) => (
@@ -106,7 +106,7 @@ function Home() {
           </List>
         </Grid>
         <Grid item xs={12} sm={3}>
-          <h4>Comments</h4>
+          <h4>Comments {`(${comments?.length})`}</h4>
           <Comments comments={comments} />
         </Grid>
       </Grid>

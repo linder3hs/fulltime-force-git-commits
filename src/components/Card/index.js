@@ -1,4 +1,5 @@
 import React, { memo } from "react";
+import Emoji from "react-emoji-render";
 import { Avatar, Button } from "@material-ui/core";
 import { Column, Row, Item } from "@mui-treasury/components/flex";
 import { Info, InfoCaption } from "@mui-treasury/components/info";
@@ -37,7 +38,9 @@ const ChatzListItem = memo(function ChatzListItem(props) {
             </div>
           </Item>
           <Info useStyles={useChatzInfoStyles}>
-            <h3>{title}</h3>
+            <h3>
+              <Emoji text={title} />
+            </h3>
             <span>{name}</span>
             <InfoCaption>{moment(date).format("MMM D, YY")}</InfoCaption>
             <Button
